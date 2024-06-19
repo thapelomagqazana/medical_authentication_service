@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstName, lastName, address, phone, email, password } = req.body;
+    const { firstName, lastName, address, phone, email, password, role } = req.body;
 
     try {
         // Check if user already exists
@@ -42,6 +42,7 @@ exports.register = async (req, res) => {
             phone,
             email,
             password,
+            role
         });
 
         // Encrypt password

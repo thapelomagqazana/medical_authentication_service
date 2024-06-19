@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 require("dotenv").config();
 
 /**
@@ -14,7 +15,7 @@ require("dotenv").config();
  * @param {Function} next - Express next middleware function.
  * @returns {void}
  */
-module.exports = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     // Get token from header
     const token = req.header("x-auth-token");
 
@@ -32,4 +33,32 @@ module.exports = (req, res, next) => {
     } catch (err) {
         res.status(401).json({ msg: "Token is not valid" });
     }
+};
+
+/**
+ * @function authorize
+ * @description Middleware function to authorize user based on roles.
+ * @param {...string} roles - Roles that are allowed to access the route.
+ * @returns {Function} Middleware function.
+ */
+const authorize = (...roles) => {
+    return async (req, res, next) => {
+        try {
+            const user = await User.findById(req.user.id);
+
+            if (!roles.includes(user.role)) {
+                return res.status(403).json({ msg: 'Unauthorized' });
+            }
+
+            next();
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).json({ msg: 'Server error' });
+        }
+    };
+};
+
+module.exports = {
+    authMiddleware,
+    authorize,
 };

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middleware/auth");
+const { authMiddleware, authorize } = require("../middleware/auth");
 const { check } = require("express-validator");
 const profileController = require("../controllers/profileController");
 
@@ -20,7 +20,8 @@ const profileController = require("../controllers/profileController");
  * @returns {Object} 500 - Server error.
  */
 router.get("/me", 
-    authMiddleware, 
+    authMiddleware,
+    authorize("patient"),
     profileController.getProfile);
 
 /**
@@ -35,7 +36,8 @@ router.get("/me",
  * @returns {Object} 500 - Server error.
  */
 router.post("/me", 
-    authMiddleware, 
+    authMiddleware,
+    authorize("patient"),
     [
         check("firstName", "First name is required").not().isEmpty(),
         check("lastName", "Last name is required").not().isEmpty(),

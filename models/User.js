@@ -22,12 +22,30 @@ const mongoose = require("mongoose");
  * @type {mongoose.Schema<UserSchema>}
  */
 const userSchema = new mongoose.Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    address: { type: String },
-    phone: { type: String },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    firstName: { 
+        type: String, 
+        required: true 
+    },
+    lastName: { 
+        type: String, 
+        required: true 
+    },
+    address: { 
+        type: String 
+    },
+    phone: { 
+        type: String 
+    },
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true 
+    },
+    password: { 
+        type: String, 
+        required: true 
+    },
+    role: { type: String, enum: ['patient', 'doctor', 'staff'], default: 'patient' }, 
     // Additional profile fields
     bio: { type: String },
     avatar: { type: String },
