@@ -5,7 +5,18 @@ const { validationResult } = require("express-validator");
 
 require('dotenv').config();
 
-// Handle user registration
+/**
+ * @module AuthController
+ * @description Controller for handling user authentication such as registration and login.
+ */
+
+/**
+ * @function register
+ * @description Handle user registration.
+ * @param {Object} req - Express request object containing user details in the body.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>}
+ */
 exports.register = async (req, res) => {
     // Validate request body
     const errors = validationResult(req);
@@ -62,7 +73,13 @@ exports.register = async (req, res) => {
     }
 };
 
-// Middleware for user login
+/**
+ * @function login
+ * @description Middleware for user login.
+ * @param {Object} req - Express request object containing user email and password in the body.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>}
+ */
 exports.login = async (req, res) => {
     const { email, password } = req.body;
 
