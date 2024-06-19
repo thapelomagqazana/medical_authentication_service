@@ -13,6 +13,8 @@ const mongoose = require("mongoose");
  * @property {string} phone - The phone number of the user. This field is optional.
  * @property {string} email - The email address of the user. This field is required and must be unique.
  * @property {string} password - The password of the user. This field is required.
+ * @property {string} bio - The bio of the user. This field is optional.
+ * @property {string} avatar - The avatar of the user. This field is optional.
  */
 
 /**
@@ -26,6 +28,9 @@ const userSchema = new mongoose.Schema({
     phone: { type: String },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    // Additional profile fields
+    bio: { type: String },
+    avatar: { type: String },
 }, { timestamps: true });
 
 /**

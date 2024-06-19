@@ -1,5 +1,6 @@
 const express = require("express");
 const authRoutes = require("./routes/authRoutes");
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 
@@ -17,15 +18,9 @@ const app = express();
  */
 app.use(express.json({ extended: false }));
 
-/**
- * @description Middleware to handle authentication routes.
- * @name useAuthRoutes
- * @function
- * @memberof module:App
- * @param {string} path - The base path for the authentication routes.
- * @param {Object} router - The router object containing the authentication routes.
- */
+// Define Routes
 app.use("/api/auth", authRoutes);
+app.use('/api/profile', profileRoutes); // New profile routes
 
 /**
  * @description Default route to check if the API is running.
